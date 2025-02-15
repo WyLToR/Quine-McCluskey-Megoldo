@@ -28,7 +28,7 @@ export default function Quine() {
         variables: `A "${maxValue}" érték leírásához ${requiredBits} változó szükséges.`,
         error: false,
       });
-      return; 
+      return;
     }
 
     setError({
@@ -37,9 +37,10 @@ export default function Quine() {
       error: true,
     });
 
-    const invalidDontCares = dontCares.filter(
-      (value) => !terms.includes(value)
-    );
+    const invalidDontCares =
+      dontCares.length > 0
+        ? dontCares.filter((value) => !terms.includes(value))
+        : [];
 
     if (invalidDontCares.length > 0) {
       setError({
@@ -70,18 +71,18 @@ export default function Quine() {
     }
   };
 
-
-
   const algorithm = () => {
     const minterms = values.minTerms
       .split(",")
       .map((num) => num.trim())
       .map(Number);
     const dontCares = values.dontCare
-      .split(",")
-      .map((num) => num.trim())
-      .map(Number);
-
+      ? values.dontCare
+          .split(",")
+          .map((num) => num.trim())
+          .map(Number)
+      : [];
+    console.log(values.dontCare);
     const variables = values.variables.split(",").map((v) => v.trim());
     checkVarsLength(minterms, variables, dontCares);
 
@@ -98,14 +99,21 @@ export default function Quine() {
   };
 
   return (
-    <section className="flex justify-center items-center h-screen">
+    <section className="relative flex justify-center items-center h-screen">
+      <a
+        target="_blank"
+        className="abolute left-0 top-0 z-20"
+        href="https://www.github.com/WyLToR"
+      >
+        Github
+      </a>
       <video
         className="absolute top-0 left-0 w-full h-full object-cover"
         autoPlay
         loop
         muted
       >
-        <source src="/bg_video.mp4" type="video/mp4"/>
+        <source src="/bg_video.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
       <form
